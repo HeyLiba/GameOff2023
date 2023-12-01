@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://blvh2ik1wtea"]
+
+[ext_resource type="Script" path="res://scenes/laser.gd" id="1_rhhk1"]
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="2_b17f6"]
+
+[node name="Laser" type="RayCast2D"]
+modulate = Color(1, 0.768627, 0.0196078, 1)
+target_position = Vector2(2000, 0)
+collision_mask = 7
+hit_from_inside = true
+script = ExtResource("1_rhhk1")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.713726, 0.713726, 0.713726, 1)
+scale = Vector2(0.09375, 0.0461538)
+texture = ExtResource("2_b17f6")

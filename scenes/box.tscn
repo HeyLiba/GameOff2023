@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6b53i6w03eu6"]
+
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="1_8ec72"]
+[ext_resource type="PackedScene" uid="uid://cjkspukqavt75" path="res://scenes/scalable.tscn" id="2_x8da8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6d116"]
+friction = 0.4
+bounce = 0.1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jilvr"]
+polygon = PackedVector2Array(-22, -21, -22, 22, 22, 22, 22, -21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rgsm"]
+size = Vector2(25.5, 25.5)
+
+[node name="Box" type="RigidBody2D"]
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_6d116")
+linear_damp = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.152941, 0.835294, 0.682353, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_8ec72")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+scale = Vector2(5, 5)
+occluder = SubResource("OccluderPolygon2D_jilvr")
+occluder_light_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8rgsm")
+
+[node name="Scalable" parent="." instance=ExtResource("2_x8da8")]
+scale_layers = Array[float]([1.75, 1.5, 1.25])

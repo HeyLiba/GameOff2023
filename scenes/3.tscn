@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwc6scod2mjvn"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_mow7g"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_dg2ul"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_lj0sv"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="4_q2lfd"]
+[ext_resource type="PackedScene" uid="uid://blvh2ik1wtea" path="res://scenes/laser.tscn" id="5_ah65w"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_q2iua"]
+polygon = PackedVector2Array(520.028, 296.747, 559.737, 535, -61.5078, 535, -15.2872, 297.294, -8, 297.659, -8, 396.899, -3.89949, 401, 80, 401, 80, 481.899, 84.1005, 486, 508.932, 486, 513.045, 481.821, 510.116, 296.316)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_mow7g")]
+position = Vector2(15, 380)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.176471, 0.309804, 0.360784, 1)
+polygon = PackedVector2Array(-62, 307, -112, 522, 460, 518, 452, 307)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("2_dg2ul")]
+polygon = PackedVector2Array(-21, 290, -1, 291, -1, 394, 87, 394, 87, 479, 506, 479, 503, 289, 526, 290, 568, 542, -70, 542)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-21, 290, -1, 291, -1, 394, 87, 394, 87, 479, 506, 479, 503, 289, 526, 290, 568, 542, -70, 542)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_q2iua")
+
+[node name="Exit" parent="." instance=ExtResource("3_lj0sv")]
+position = Vector2(474, 448)
+
+[node name="Box" parent="." instance=ExtResource("4_q2lfd")]
+position = Vector2(72, 379)
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 85.0
+offset_top = 492.0
+offset_right = 279.0
+offset_bottom = 596.0
+text = "get away from that laser!"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 85.0
+offset_top = 491.0
+offset_right = 279.0
+offset_bottom = 595.0
+text = "get away from that laser!"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 84.0
+offset_top = 490.0
+offset_right = 278.0
+offset_bottom = 594.0
+text = "get away from that laser!"
+
+[node name="Laser" parent="." instance=ExtResource("5_ah65w")]
+position = Vector2(89, 464)
+
+[editable path="Map"]

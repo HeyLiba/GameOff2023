@@ -1,0 +1,151 @@
+[gd_scene load_steps=14 format=3 uid="uid://e6f6yakaok6o"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_6kjy5"]
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="2_q8pfh"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="3_d2ra4"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="4_yfil8"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="5_wwg7p"]
+[ext_resource type="PackedScene" uid="uid://bj01g8wj8rvih" path="res://scenes/door.tscn" id="6_524iq"]
+[ext_resource type="PackedScene" uid="uid://cvtb6hcy1mtv8" path="res://scenes/button.tscn" id="7_psdbg"]
+[ext_resource type="PackedScene" uid="uid://c8m211cv8t6rq" path="res://scenes/spong.tscn" id="8_44fep"]
+[ext_resource type="PackedScene" uid="uid://egmbjr7pnfwd" path="res://scenes/button_line.tscn" id="8_v1lui"]
+[ext_resource type="PackedScene" uid="uid://b2u4iqdmuijtc" path="res://scenes/jump_pad.tscn" id="9_0atbt"]
+[ext_resource type="PackedScene" uid="uid://df8263kkkk0na" path="res://scenes/one_way_platform.tscn" id="10_uo7ve"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gpr8m"]
+polygon = PackedVector2Array(-26.6189, -111.376, -26.6189, -31.5437, -33.5159, -31.5437, -33.5159, -18.6925, -54.3209, -18.6925, -54.3209, -34.6591, -50.3879, -34.6591, -50.3879, -45.5631, -54.2639, -45.5631, -54.3209, -107.093, -58.9379, -106.703, -58.9379, 0.389427, -18.468, 0, -18.354, -111.571)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_saccc"]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6kjy5")]
+position = Vector2(136, 366)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.117647, 0.109804, 0.113725, 1)
+polygon = PackedVector2Array(-103, -71, -28, 435, 577, 444, 604, -104)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Walls"]
+position = Vector2(986, 482)
+scale = Vector2(17.5439, 5.13574)
+occluder = SubResource("OccluderPolygon2D_gpr8m")
+occluder_light_mask = 3
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Walls"]
+position = Vector2(986, 482)
+scale = Vector2(17.5439, 5.13574)
+occluder = SubResource("OccluderPolygon2D_gpr8m")
+occluder_light_mask = 3
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
+position = Vector2(528, 399)
+scale = Vector2(13.6202, 8.45736)
+collision_layer = 2
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_q8pfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Walls"]
+position = Vector2(337, 431)
+scale = Vector2(32.36, 5.17604)
+collision_layer = 2
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D3"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_q8pfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="Walls"]
+position = Vector2(589, 127)
+scale = Vector2(7.5593, 21.8217)
+collision_layer = 2
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D5"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_q8pfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D5"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Walls"]
+position = Vector2(-3, 213)
+scale = Vector2(4.48, 27.0566)
+collision_layer = 2
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D4"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_q8pfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D4"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="Walls"]
+position = Vector2(62, 275)
+scale = Vector2(4.5886, 3.56031)
+collision_layer = 2
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/StaticBody2D6"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_q8pfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D6"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Box" parent="." instance=ExtResource("3_d2ra4")]
+position = Vector2(333, 365)
+
+[node name="Exit" parent="." instance=ExtResource("4_yfil8")]
+
+[node name="HangingBody" parent="." instance=ExtResource("5_wwg7p")]
+position = Vector2(267, 278)
+rotation = -0.362461
+
+[node name="Door" parent="." instance=ExtResource("6_524iq")]
+position = Vector2(101, 379)
+scale = Vector2(0.5, 2.68)
+
+[node name="Button" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("7_psdbg")]
+position = Vector2(465, 312)
+doors = [NodePath("../Door")]
+
+[node name="Button Line" parent="Button" instance=ExtResource("8_v1lui")]
+
+[node name="Box2" parent="." instance=ExtResource("8_44fep")]
+position = Vector2(468, 272.5)
+
+[node name="OneWayPlatform" parent="." instance=ExtResource("10_uo7ve")]
+
+[node name="JumpPad" parent="." instance=ExtResource("9_0atbt")]

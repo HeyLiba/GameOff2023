@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://k7v2wmyx3l8d"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_xrd5o"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_ss40s"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_q08k5"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="4_3a1ux"]
+[ext_resource type="PackedScene" uid="uid://c8m211cv8t6rq" path="res://scenes/spong.tscn" id="4_6glmh"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="7_2q1p0"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hfci6"]
+polygon = PackedVector2Array(199.778, 186.749, 21.3715, 325.51, 19.9443, 328.565, 21.107, 361.12, 25.2843, 365.062, 110.412, 363.17, 108.504, 387.335, 22.952, 391.879, 19.1212, 395.865, 17.9615, 482.838, 22.0851, 487.007, 442.935, 485.993, 447.034, 481.836, 445.082, 314.947, 572.937, 313.978, 577, 309.884, 577, 242.079, 572.848, 237.97, 472.276, 239.007, 470.998, 239.261, 332.189, 294.973, 331.394, 285.433, 464.446, 228, 614.477, 228, 554.243, 532.039, -27.887, 535.959, -75.1209, 186.042, 197.49, 150.897)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_xrd5o")]
+position = Vector2(138, 467)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.529412, 0.0470588, 0.258824, 1)
+polygon = PackedVector2Array(-62, 307, -68, 516, 460, 518, 532, 305, 525, 223, 423, 226, 271, 267, 271.434, 200.535, 272, 114, 147, 131, 147, 167)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = 1.18431
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("2_ss40s")]
+polygon = PackedVector2Array(-83, 180, 204, 143, 207, 190, 27, 330, 28, 358, 118, 356, 115, 394, 26.0837, 398.723, 25, 480, 440, 479, 438, 308, 570, 307, 570, 245, 473, 246, 326, 305, 324, 281, 463, 221, 623, 221, 560, 539, -34, 543)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-83, 180, 204, 143, 207, 190, 27, 330, 28, 358, 118, 356, 115, 394, 26.0837, 398.723, 25, 480, 440, 479, 438, 308, 570, 307, 570, 245, 473, 246, 326, 305, 324, 281, 463, 221, 623, 221, 560, 539, -34, 543)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_hfci6")
+
+[node name="Exit" parent="." instance=ExtResource("3_q08k5")]
+position = Vector2(548, 277)
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = -30.0
+offset_top = 547.0
+offset_right = 161.0
+offset_bottom = 651.0
+text = "isnt that little box cute? :P"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = -30.0
+offset_top = 546.0
+offset_right = 161.0
+offset_bottom = 650.0
+text = "isnt that little box cute? :P"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -31.0
+offset_top = 545.0
+offset_right = 160.0
+offset_bottom = 649.0
+text = "isnt that little box cute? :P"
+
+[node name="Spong" parent="." instance=ExtResource("4_6glmh")]
+position = Vector2(106, 349)
+
+[node name="Box" parent="." instance=ExtResource("7_2q1p0")]
+position = Vector2(254, 465)
+
+[node name="HangingBody" parent="." instance=ExtResource("4_3a1ux")]
+position = Vector2(227, 222)
+rotation = -0.693002
+
+[editable path="Map"]

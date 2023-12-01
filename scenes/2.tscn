@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://c412eeq4ju8gf"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_fmgka"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_26rij"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_3wbub"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="5_e7c65"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lhplv"]
+polygon = PackedVector2Array(570.017, 327.304, 570.972, 565.021, -69, 566.979, -69, 369, -25.7972, 369, -4.40865, 481.776, -0.53905, 484.992, 303.903, 486.01, 308.029, 481.857, 307.07, 385.967, 516.923, 384.986, 521, 380.89, 521, 302.407)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_fmgka")]
+position = Vector2(102, 436)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.211765, 0.305882, 0.352941, 1)
+polygon = PackedVector2Array(-126, 350, -121, 548, 460, 518, 461, 216, 245, 216, 121, 275, 80, 277)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("2_26rij")]
+polygon = PackedVector2Array(-76, 362, -20, 362, 2, 478, 301, 479, 300, 379, 514, 378, 514, 291, 577, 323, 578, 572, -76, 574)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-76, 362, -20, 362, 2, 478, 301, 479, 300, 379, 514, 378, 514, 291, 577, 323, 578, 572, -76, 574)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_lhplv")
+
+[node name="Exit" parent="." instance=ExtResource("3_3wbub")]
+position = Vector2(486, 346)
+
+[node name="Box" parent="." instance=ExtResource("5_e7c65")]
+position = Vector2(230, 467)
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 13.0
+offset_top = 340.0
+offset_right = 168.0
+offset_bottom = 444.0
+text = "aim with mouse
+shoot with left click
+"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 13.0
+offset_top = 339.0
+offset_right = 168.0
+offset_bottom = 443.0
+text = "aim with mouse
+shoot with left click
+"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 12.0
+offset_top = 338.0
+offset_right = 167.0
+offset_bottom = 442.0
+text = "aim with mouse
+shoot with left click
+"
+
+[editable path="Map"]

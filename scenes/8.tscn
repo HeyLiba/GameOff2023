@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddmf0ks7idx8s"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_o1v2u"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="2_1f05o"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="3_7paeo"]
+[ext_resource type="PackedScene" uid="uid://df8263kkkk0na" path="res://scenes/one_way_platform.tscn" id="3_r0ygm"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="5_ffkys"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="6_lcswk"]
+[ext_resource type="PackedScene" uid="uid://cvtb6hcy1mtv8" path="res://scenes/button.tscn" id="6_q6enr"]
+[ext_resource type="PackedScene" uid="uid://bj01g8wj8rvih" path="res://scenes/door.tscn" id="8_aea62"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g1kox"]
+polygon = PackedVector2Array(575, 430.809, 542.049, 469.358, 541.953, 474.374, 575.96, 517.383, 575.114, 569.01, -67, 569.989, -67, 526.636, -24.9661, 475.465, -25.0352, 470.346, -67, 421.983, -67, 198.098, -9.49817, 198.897, -11.8373, 232.424, -27.8765, 253.475, -28.104, 257.787, -10.9778, 285.995, -9.96641, 374.996, -5.77862, 379.056, 92, 377.139, 92, 480.899, 96.1005, 485, 138.945, 485, 143.064, 480.789, 142.157, 440, 151.76, 440, 173.699, 481.969, 177.026, 483.993, 449.881, 485.011, 454, 480.907, 454, 427, 510.208, 427, 514.304, 422.926, 514.988, 295.191, 537.014, 263.153, 536.985, 258.754, 514.894, 227.52, 514.979, 198.906, 575, 198.095)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_o1v2u")]
+position = Vector2(203, 462)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.431373, 0.372549, 0.513726, 1)
+antialiased = true
+polygon = PackedVector2Array(-117, 178, -25, 553, 468, 552, 510, 178, 424.796, 178, 401, 192, 373.502, 178, 292.249, 178, 197, 128, 101, 178, 23, 178, -2, 193, -23.4016, 178)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Exit" parent="." instance=ExtResource("2_1f05o")]
+position = Vector2(23, 341)
+
+[node name="Map" parent="." instance=ExtResource("3_7paeo")]
+polygon = PackedVector2Array(-74, 191, -2, 192, -5, 235, -21, 256, -4, 284, -3, 372, 99, 370, 99, 478, 136, 478, 135, 433, 156, 433, 179, 477, 447, 478, 447, 420, 507.319, 420, 508, 293, 530, 261, 507.887, 229.735, 508, 192, 582, 191, 582, 433.393, 549, 472, 583, 515, 582, 576, -74, 577, -74, 524.13, -32, 473, -74, 424.596)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-74, 191, -2, 192, -5, 235, -21, 256, -4, 284, -3, 372, 99, 370, 99, 478, 136, 478, 135, 433, 156, 433, 179, 477, 447, 478, 447, 420, 507.319, 420, 508, 293, 530, 261, 507.887, 229.735, 508, 192, 582, 191, 582, 433.393, 549, 472, 583, 515, 582, 576, -74, 577, -74, 524.13, -32, 473, -74, 424.596)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_g1kox")
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = -55.0
+offset_top = 580.0
+offset_right = 100.0
+offset_bottom = 684.0
+text = ":X"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = -55.0
+offset_top = 579.0
+offset_right = 100.0
+offset_bottom = 683.0
+text = ":X"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -56.0
+offset_top = 578.0
+offset_right = 99.0
+offset_bottom = 682.0
+text = ":X"
+
+[node name="OneWayPlatform" parent="." instance=ExtResource("3_r0ygm")]
+position = Vector2(309, 412)
+scale = Vector2(6.69046, 0.252668)
+
+[node name="Box" parent="." instance=ExtResource("5_ffkys")]
+position = Vector2(308, 394)
+
+[node name="Box2" parent="." instance=ExtResource("5_ffkys")]
+position = Vector2(310, 464)
+
+[node name="Button" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("6_q6enr")]
+position = Vector2(117, 476)
+doors = [NodePath("../Door")]
+
+[node name="Button2" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("6_q6enr")]
+position = Vector2(477, 416)
+doors = [NodePath("../Door")]
+
+[node name="HangingBody" parent="." instance=ExtResource("6_lcswk")]
+position = Vector2(278, 333)
+rotation = 0.286199
+
+[node name="Door" parent="." instance=ExtResource("8_aea62")]
+position = Vector2(83, 371)
+scale = Vector2(0.5, 3.72)
+buttons_to_open = 2
+
+[editable path="Map"]

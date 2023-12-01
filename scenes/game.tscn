@@ -1,0 +1,74 @@
+[gd_scene load_steps=22 format=3 uid="uid://ytobwpldkfe5"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_i10tm"]
+[ext_resource type="PackedScene" uid="uid://b4t1d52ywhj40" path="res://scenes/Start.tscn" id="2_rc25u"]
+[ext_resource type="PackedScene" uid="uid://c412eeq4ju8gf" path="res://scenes/2.tscn" id="3_tdyvl"]
+[ext_resource type="PackedScene" uid="uid://o46o7opk56rm" path="res://scenes/1.tscn" id="4_5s5c4"]
+[ext_resource type="PackedScene" uid="uid://81h4gbdk3kxm" path="res://scenes/4.tscn" id="4_f6lb3"]
+[ext_resource type="PackedScene" uid="uid://bwc6scod2mjvn" path="res://scenes/3.tscn" id="4_vye35"]
+[ext_resource type="PackedScene" uid="uid://bco63j6ip7jgi" path="res://scenes/5.tscn" id="4_vyick"]
+[ext_resource type="Shader" path="res://scenes/stripe.gdshader" id="7_abgv5"]
+[ext_resource type="Shader" path="res://scenes/vig.gdshader" id="7_iw7ve"]
+[ext_resource type="PackedScene" uid="uid://cxfv86vessbuv" path="res://scenes/6.tscn" id="7_xia23"]
+[ext_resource type="PackedScene" uid="uid://k7v2wmyx3l8d" path="res://scenes/7.tscn" id="8_v8byq"]
+[ext_resource type="PackedScene" uid="uid://ddmf0ks7idx8s" path="res://scenes/8.tscn" id="9_crhs1"]
+[ext_resource type="PackedScene" uid="uid://bim7iqacsnn5s" path="res://scenes/10.tscn" id="9_gq2bm"]
+[ext_resource type="PackedScene" uid="uid://ck1t5j4x24ow2" path="res://scenes/9.tscn" id="9_t3snm"]
+[ext_resource type="PackedScene" uid="uid://dtowd1qskrdhp" path="res://scenes/11.tscn" id="9_w7gpf"]
+[ext_resource type="AudioStream" uid="uid://bwmv27ecf3r4" path="res://game off 2023.ogg" id="12_d6qsh"]
+[ext_resource type="AudioStream" uid="uid://bwrollf2hudor" path="res://lose.wav" id="13_tf2fp"]
+[ext_resource type="AudioStream" uid="uid://dvi65yjvdbpfg" path="res://nextlevel.wav" id="14_18e4l"]
+[ext_resource type="PackedScene" uid="uid://j8akix7ivlvu" path="res://scenes/End.tscn" id="14_fxipn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f5n13"]
+shader = ExtResource("7_abgv5")
+shader_parameter/color_gap = Color(0.0352941, 0.0392157, 0.168627, 1)
+shader_parameter/color_stripe = Color(0.0823529, 0.0431373, 0.160784, 1)
+shader_parameter/divisions = 20.0
+shader_parameter/stripe_bias = 2.5
+shader_parameter/speed = 0.1
+shader_parameter/angle = 0.7854
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4n77"]
+shader = ExtResource("7_iw7ve")
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_i10tm")
+scenes = Array[PackedScene]([ExtResource("2_rc25u"), ExtResource("4_5s5c4"), ExtResource("3_tdyvl"), ExtResource("4_vye35"), ExtResource("4_f6lb3"), ExtResource("4_vyick"), ExtResource("7_xia23"), ExtResource("8_v8byq"), ExtResource("9_crhs1"), ExtResource("9_t3snm"), ExtResource("9_gq2bm"), ExtResource("9_w7gpf"), ExtResource("14_fxipn")])
+
+[node name="Worlds" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_f5n13")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vig" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_w4n77")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_d6qsh")
+volume_db = -30.0
+autoplay = true
+
+[node name="Lose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_tf2fp")
+volume_db = -30.0
+
+[node name="Win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_18e4l")
+volume_db = -30.0

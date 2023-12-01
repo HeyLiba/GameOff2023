@@ -1,0 +1,290 @@
+[gd_scene load_steps=21 format=3 uid="uid://custulqu5opdo"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_lfqi0"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_c7af3"]
+[ext_resource type="Texture2D" uid="uid://dgrfdin7xnlno" path="res://sprites/drawing.svg" id="2_w47o6"]
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="3_k0xdx"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_vkh7u"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_xu20p"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_op8ve"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="7_xpwuy"]
+[ext_resource type="Texture2D" uid="uid://qpee1v2w3syt" path="res://sprites/Gun.png" id="9_57iw1"]
+[ext_resource type="AudioStream" uid="uid://dmwom7t4ftobw" path="res://walk.wav" id="10_3r3dl"]
+[ext_resource type="AudioStream" uid="uid://bv5xtcobqr086" path="res://jump.wav" id="11_c48lu"]
+[ext_resource type="AudioStream" uid="uid://chk3krk044opx" path="res://shoot.wav" id="12_wdjfr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fikdi"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fr4du"]
+size = Vector2(26, 33.6977)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f810b"]
+size = Vector2(15, 5)
+
+[sub_resource type="Animation" id="Animation_uxnpx"]
+resource_name = "Idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, -1)]
+}
+
+[sub_resource type="Animation" id="Animation_42wo0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_116ge"]
+resource_name = "Run"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -2), Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d424s"]
+_data = {
+"Idle": SubResource("Animation_uxnpx"),
+"RESET": SubResource("Animation_42wo0"),
+"Run": SubResource("Animation_116ge")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2mdjc"]
+polygon = PackedVector2Array(-10, -11, -10, 10, 10, 10, 10, -11)
+
+[node name="Player" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 7
+physics_material_override = SubResource("PhysicsMaterial_fikdi")
+gravity_scale = 2.0
+continuous_cd = 1
+lock_rotation = true
+script = ExtResource("1_lfqi0")
+max_x_speed = 500.0
+acceleration = 1000.0
+jump_force = 550.0
+ledge_grab_jump_force = 600.0
+friction = 5.0
+fall_gravity_scale = 3.0
+pick_force = 2.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0.721569, 1)
+energy = 0.4
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.317647)
+shadow_item_cull_mask = 2
+texture = ExtResource("2_w47o6")
+texture_scale = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -10
+position = Vector2(0, -0.482419)
+scale = Vector2(0.993061, 0.740848)
+shape = SubResource("RectangleShape2D_fr4du")
+
+[node name="Body" type="Sprite2D" parent="."]
+modulate = Color(0.47451, 1, 1, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_k0xdx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -50)
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
+drag_horizontal_enabled = true
+
+[node name="Grounded" type="Area2D" parent="."]
+position = Vector2(0, 11)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grounded"]
+shape = SubResource("RectangleShape2D_f810b")
+
+[node name="GroundMonitoringTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="FrontMonitoringTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="FrontRay" type="RayCast2D" parent="."]
+editor_description = "they just collide with walls!"
+target_position = Vector2(25, 0)
+collision_mask = 3
+
+[node name="UpRay" type="RayCast2D" parent="."]
+editor_description = "they just collide with walls!"
+enabled = false
+target_position = Vector2(25, -20)
+collision_mask = 3
+
+[node name="Gun" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(100, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Gun"]
+z_index = 2
+position = Vector2(26, 0)
+scale = Vector2(0.126812, 0.126812)
+texture = ExtResource("9_57iw1")
+offset = Vector2(-80, 5)
+
+[node name="Line2D" type="Line2D" parent="Gun/Sprite2D"]
+z_index = -1
+position = Vector2(-205.028, 0)
+scale = Vector2(7.88569, 7.88569)
+points = PackedVector2Array(22.5, 0, 22.5, 0)
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_c7af3")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_vkh7u")
+initial_state = NodePath("Grounded")
+
+[node name="Grounded" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_vkh7u")
+initial_state = NodePath("Move")
+
+[node name="Move" type="Node" parent="StateChart/Root/Grounded"]
+script = ExtResource("4_xu20p")
+
+[node name="To Brake" type="Node" parent="StateChart/Root/Grounded/Move"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../Brake")
+event = &"brake"
+
+[node name="Brake" type="Node" parent="StateChart/Root/Grounded"]
+script = ExtResource("4_xu20p")
+
+[node name="To Move" type="Node" parent="StateChart/Root/Grounded/Brake"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../Move")
+delay_seconds = 0.5
+
+[node name="On Jump" type="Node" parent="StateChart/Root/Grounded"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../unGrounded/JumpCondition/JumpDisabled")
+event = &"jump"
+
+[node name="unGrounded" type="Node" parent="StateChart/Root/Grounded"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../unGrounded")
+event = &"ungrounded"
+
+[node name="unGrounded" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_xpwuy")
+
+[node name="AirCondition" type="Node" parent="StateChart/Root/unGrounded"]
+script = ExtResource("3_vkh7u")
+initial_state = NodePath("Rise")
+
+[node name="Rise" type="Node" parent="StateChart/Root/unGrounded/AirCondition"]
+script = ExtResource("4_xu20p")
+
+[node name="To Fall" type="Node" parent="StateChart/Root/unGrounded/AirCondition/Rise"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../Fall")
+event = &"fall"
+
+[node name="Fall" type="Node" parent="StateChart/Root/unGrounded/AirCondition"]
+script = ExtResource("4_xu20p")
+
+[node name="On Jump" type="Node" parent="StateChart/Root/unGrounded/AirCondition/Fall"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../Rise")
+event = &"jump"
+
+[node name="JumpCondition" type="Node" parent="StateChart/Root/unGrounded"]
+script = ExtResource("3_vkh7u")
+initial_state = NodePath("CayoteJumpEnabled")
+
+[node name="CayoteJumpEnabled" type="Node" parent="StateChart/Root/unGrounded/JumpCondition"]
+script = ExtResource("4_xu20p")
+
+[node name="On Jump" type="Node" parent="StateChart/Root/unGrounded/JumpCondition/CayoteJumpEnabled"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../JumpDisabled")
+event = &"jump"
+
+[node name="On Expired" type="Node" parent="StateChart/Root/unGrounded/JumpCondition/CayoteJumpEnabled"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../JumpDisabled")
+delay_seconds = 0.5
+
+[node name="JumpDisabled" type="Node" parent="StateChart/Root/unGrounded/JumpCondition"]
+script = ExtResource("4_xu20p")
+
+[node name="On Grounded" type="Node" parent="StateChart/Root/unGrounded"]
+script = ExtResource("6_op8ve")
+to = NodePath("../../Grounded")
+event = &"grounded"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_d424s")
+}
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_2mdjc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_3r3dl")
+volume_db = -15.0
+
+[node name="Timer" type="Timer" parent="AudioStreamPlayer"]
+wait_time = 0.2
+one_shot = true
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_c48lu")
+volume_db = -10.0
+
+[node name="shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_wdjfr")
+volume_db = -35.0
+pitch_scale = 0.5
+
+[connection signal="timeout" from="GroundMonitoringTimer" to="." method="_on_ground_monitoring_timer_timeout"]
+[connection signal="timeout" from="FrontMonitoringTimer" to="." method="_on_front_monitoring_timer_timeout"]
+[connection signal="state_processing" from="StateChart/Root/Grounded" to="." method="jump_check"]
+[connection signal="state_exited" from="StateChart/Root/Grounded/Move" to="." method="_on_move_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Grounded/Move" to="." method="_on_move_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/unGrounded" to="." method="_on_un_grounded_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/unGrounded/AirCondition/Fall" to="." method="_on_fall_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/unGrounded/AirCondition/Fall" to="." method="_on_fall_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/unGrounded/AirCondition/Fall" to="." method="_on_fall_state_physics_processing"]
+[connection signal="state_processing" from="StateChart/Root/unGrounded/JumpCondition/CayoteJumpEnabled" to="." method="jump_check"]

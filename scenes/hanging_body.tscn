@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwv0ma6ijokcb"]
+
+[ext_resource type="Script" path="res://scripts/HangingBody.gd" id="1_eec5w"]
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="2_i76hd"]
+[ext_resource type="PackedScene" uid="uid://cjkspukqavt75" path="res://scenes/scalable.tscn" id="3_d0iql"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kv0dk"]
+friction = 0.4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pfsdh"]
+size = Vector2(34, 20.6)
+
+[node name="HangingBody" type="RigidBody2D"]
+position = Vector2(0, 37)
+collision_mask = 7
+mass = 0.6
+physics_material_override = SubResource("PhysicsMaterial_kv0dk")
+max_contacts_reported = 3
+contact_monitor = true
+angular_damp = 10.0
+script = ExtResource("1_eec5w")
+max_velocity_squered = 4000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13.5)
+scale = Vector2(0.992168, 0.427621)
+shape = SubResource("RectangleShape2D_pfsdh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 0.0156863, 1)
+position = Vector2(0, -15.4518)
+scale = Vector2(0.132013, 0.0191546)
+texture = ExtResource("2_i76hd")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sprite2D"]
+position = Vector2(0, -111.608)
+scale = Vector2(1.33007, 43.4728)
+color = Color(1, 1, 0.639216, 1)
+shadow_enabled = true
+texture = ExtResource("2_i76hd")
+offset = Vector2(0, 95.6849)
+texture_scale = 0.75
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprite2D"]
+show_behind_parent = true
+position = Vector2(0, 195.336)
+scale = Vector2(0.831016, 1.10056)
+texture = ExtResource("2_i76hd")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(0, -37)
+node_a = NodePath("../StaticBody2D")
+node_b = NodePath("..")
+
+[node name="Line2D" type="Line2D" parent="PinJoint2D"]
+z_index = -1
+position = Vector2(-1.52588e-05, 37)
+points = PackedVector2Array(1.52588e-05, -16, 0.266571, -38.4699)
+width = 5.0
+
+[node name="Scalable" parent="." instance=ExtResource("3_d0iql")]
+position = Vector2(-15, -20)
+scale_layers = Array[float]([2.0, 2.0, 2.0])
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

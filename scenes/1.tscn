@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://o46o7opk56rm"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_b3lya"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_hacp1"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_kcnx3"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wsgt3"]
+polygon = PackedVector2Array(770.982, 567.016, -112.982, 568.984, -112.018, 199, -8.90279, 199, -4.95917, 480.968, -0.87087, 485, 205.15, 485, 209.254, 480.876, 209.033, 434, 314, 434, 314, 480.899, 318.101, 485, 385, 485, 385, 540.874, 389.039, 544.964, 474.837, 546.036, 479, 541.925, 479, 432, 657.891, 432, 661.988, 427.921, 662.97, 197, 770.018, 197)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_b3lya")]
+position = Vector2(102, 436)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.25098, 0.235294, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(-173, 176, -172, 555, 715, 556, 717, 177)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Exit" parent="." instance=ExtResource("3_kcnx3")]
+position = Vector2(624, 393)
+
+[node name="Map" parent="." instance=ExtResource("2_hacp1")]
+polygon = PackedVector2Array(-119, 192, -2, 192, 2, 478, 202.241, 478, 202, 427, 321, 427, 321, 478, 392, 478, 392, 538, 472, 539, 472, 425, 655, 425, 656, 190, 777, 190, 778, 574, -120, 576)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-119, 192, -2, 192, 2, 478, 202.241, 478, 202, 427, 321, 427, 321, 478, 392, 478, 392, 538, 472, 539, 472, 425, 655, 425, 656, 190, 777, 190, 778, 574, -120, 576)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_wsgt3")
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 6.0
+offset_top = 290.0
+offset_right = 161.0
+offset_bottom = 394.0
+text = "Welcome :D
+press space to jump
+D to right
+L to left"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 6.0
+offset_top = 289.0
+offset_right = 161.0
+offset_bottom = 393.0
+text = "Welcome :D
+press space to jump
+D to right
+L to left"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 288.0
+offset_right = 160.0
+offset_bottom = 392.0
+text = "Welcome :D
+press space to jump
+D to right
+L to left"
+
+[editable path="Map"]

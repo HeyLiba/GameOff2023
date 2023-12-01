@@ -1,0 +1,117 @@
+[gd_scene load_steps=16 format=3 uid="uid://f4pvrxiapyyw"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_d7s7h"]
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="2_cx581"]
+[ext_resource type="PackedScene" uid="uid://cjkspukqavt75" path="res://scenes/scalable.tscn" id="3_s626v"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="4_6huws"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="5_5amu6"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="5_7svjv"]
+[ext_resource type="PackedScene" uid="uid://bj01g8wj8rvih" path="res://scenes/door.tscn" id="7_cvmrj"]
+[ext_resource type="PackedScene" uid="uid://cvtb6hcy1mtv8" path="res://scenes/button.tscn" id="8_g36fw"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="9_1jtqc"]
+[ext_resource type="PackedScene" uid="uid://blvh2ik1wtea" path="res://scenes/laser.tscn" id="10_qcseg"]
+[ext_resource type="PackedScene" uid="uid://cwakjx24lkfua" path="res://scenes/space_gravity.tscn" id="11_1c8dw"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xncks"]
+polygon = PackedVector2Array(1364.04, -43.0313, 1367.96, 651.917, -157.958, 634.082, -154.041, -10.2918, -28.146, -15.6873, -37.0562, 434.771, -33.0111, 438.957, 380.407, 444.92, 396.736, 515.998, 400.675, 519.058, 779.018, 509.929, 783, 505.85, 783, 446.019, 1156.91, 447.008, 1161.03, 442.854, 1156.07, -43.9681)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ydd56"]
+friction = 0.2
+bounce = 0.4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r4y7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_saccc"]
+
+[node name="World" type="Node2D"]
+
+[node name="Map" parent="." instance=ExtResource("9_1jtqc")]
+polygon = PackedVector2Array(-165, 641, -161, -17, -21, -23, -30, 432, 386, 438, 403, 512, 776, 503, 776, 439, 1154, 440, 1149, -51, 1371, -50, 1375, 659)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-165, 641, -161, -17, -21, -23, -30, 432, 386, 438, 403, 512, 776, 503, 776, 439, 1154, 440, 1149, -51, 1371, -50, 1375, 659)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_xncks")
+
+[node name="Player" parent="." instance=ExtResource("1_d7s7h")]
+position = Vector2(671, 387)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(0.45098, 0, 0.345098, 1)
+polygon = PackedVector2Array(-32, -93, -28, 435, 356, 437, 378, 543, 776, 513, 988, 451, 1272, 443, 1268, -69)
+
+[node name="Baloon" type="RigidBody2D" parent="."]
+position = Vector2(577, 345)
+collision_mask = 7
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_ydd56")
+gravity_scale = -0.5
+linear_damp = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="Baloon"]
+modulate = Color(0.905882, 0, 0.415686, 1)
+scale = Vector2(0.078125, 0.078125)
+texture = ExtResource("2_cx581")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Baloon"]
+shape = SubResource("RectangleShape2D_2r4y7")
+
+[node name="Scalable" parent="Baloon" instance=ExtResource("3_s626v")]
+scale_layers = Array[float]([1.2, 1.2, 1.2])
+
+[node name="Box" parent="." instance=ExtResource("4_6huws")]
+position = Vector2(815, 387)
+
+[node name="HangingBody" parent="." instance=ExtResource("5_7svjv")]
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("5_5amu6")]
+visible = false
+offset_left = -264.0
+offset_top = 156.0
+offset_right = 504.0
+offset_bottom = 856.0
+enabled = false
+initial_node_to_watch = NodePath("../Player")
+
+[node name="Door" parent="." instance=ExtResource("7_cvmrj")]
+position = Vector2(1004, 440)
+
+[node name="Button" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("8_g36fw")]
+position = Vector2(856, 439)
+doors = [NodePath("../Door")]
+
+[node name="Line2D" type="Line2D" parent="Button"]
+points = PackedVector2Array(-1, 6, 28, 47, 152, 45, 149, -2)
+width = 3.0
+default_color = Color(1, 1, 0, 1)
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+position = Vector2(1261, 237)
+scale = Vector2(10.9914, 30.7914)
+collision_layer = 2
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D5"]
+modulate = Color(0.337255, 0.196078, 1, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("2_cx581")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+shape = SubResource("RectangleShape2D_saccc")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -1.0472
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Laser" parent="." instance=ExtResource("10_qcseg")]
+modulate = Color(0.854902, 0.807843, 0.639216, 1)
+position = Vector2(-26, 414)
+
+[node name="SpaceGravity" parent="." instance=ExtResource("11_1c8dw")]
+
+[editable path="Map"]

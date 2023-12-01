@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bwmv27ecf3r4"
+path="res://.godot/imported/game off 2023.ogg-aa45934b8529c6296eb2101353e2a3a8.oggvorbisstr"
+
+[deps]
+
+source_file="res://game off 2023.ogg"
+dest_files=["res://.godot/imported/game off 2023.ogg-aa45934b8529c6296eb2101353e2a3a8.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://df8263kkkk0na"]
+
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="1_fj3wd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lg504"]
+
+[node name="OneWayPlatform" type="StaticBody2D"]
+position = Vector2(348.394, 343.37)
+scale = Vector2(4.45046, 0.252668)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lg504")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.360784, 0.529412, 0.960784, 1)
+scale = Vector2(0.078, 0.078)
+texture = ExtResource("1_fj3wd")

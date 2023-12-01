@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8m211cv8t6rq"]
+
+[ext_resource type="Texture2D" uid="uid://c4l2oew5i722e" path="res://sprites/squere.png" id="1_uhvhl"]
+[ext_resource type="PackedScene" uid="uid://cjkspukqavt75" path="res://scenes/scalable.tscn" id="2_5dx2k"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6d116"]
+friction = 0.4
+bounce = 0.1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jilvr"]
+polygon = PackedVector2Array(-22, -21, -22, 22, 22, 22, 22, -21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8rgsm"]
+size = Vector2(12.8078, 12.7064)
+
+[node name="Spong" type="RigidBody2D"]
+collision_mask = 7
+mass = 0.4
+physics_material_override = SubResource("PhysicsMaterial_6d116")
+linear_damp = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.968627, 0.643137, 0, 1)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_uhvhl")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+scale = Vector2(5, 5)
+occluder = SubResource("OccluderPolygon2D_jilvr")
+occluder_light_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8rgsm")
+
+[node name="Scalable" parent="." instance=ExtResource("2_5dx2k")]
+scale_layers = Array[float]([3.0, 3.0, 2.0])

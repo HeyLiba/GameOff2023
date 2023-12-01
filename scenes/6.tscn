@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxfv86vessbuv"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_eblx6"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_yle2e"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_hxmkp"]
+[ext_resource type="PackedScene" uid="uid://cvtb6hcy1mtv8" path="res://scenes/button.tscn" id="5_apxql"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="6_btxdy"]
+[ext_resource type="PackedScene" uid="uid://egmbjr7pnfwd" path="res://scenes/button_line.tscn" id="6_lpfun"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="6_s2xlb"]
+[ext_resource type="PackedScene" uid="uid://bj01g8wj8rvih" path="res://scenes/door.tscn" id="8_6l2ud"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ewd1n"]
+polygon = PackedVector2Array(208.996, 300.143, 87.8237, 303.075, 83.7899, 307.538, 84.4999, 316.767, 23.6106, 323.325, 20.036, 327.252, 17.9615, 482.838, 22.0834, 487.006, 508.91, 485.994, 513, 481.895, 513, 463.101, 508.899, 459, 445.903, 459, 445.098, 401, 507.868, 401, 511.954, 396.977, 513.041, 327.447, 509.564, 323.413, 451.976, 315.735, 450.451, 307.35, 446.789, 304.133, 332.218, 298.307, 331.939, 296.072, 433.952, 297, 433.984, 297, 600.488, 297, 554.236, 532.039, -27.9348, 535.959, -61.9425, 297.905, 99.0717, 296, 209.797, 295.069)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_eblx6")]
+position = Vector2(138, 467)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.529412, 0.0470588, 0.258824, 1)
+polygon = PackedVector2Array(-62, 307, -68, 516, 460, 518, 452, 307, 392, 305, 389, 290, 272, 290, 267, 245, 168, 245, 161, 292, 36, 289, 37, 306)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -1.19203
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("2_yle2e")]
+polygon = PackedVector2Array(-70, 291, 99, 289, 218, 288, 215, 307, 91, 310, 92, 323, 27, 330, 25, 480, 506, 479, 506, 466, 439, 466, 438, 394, 505, 394, 506, 330, 446, 322, 444, 311, 326, 305, 324, 289, 434, 290, 609, 290, 560, 539, -34, 543)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-70, 291, 99, 289, 218, 288, 215, 307, 91, 310, 92, 323, 27, 330, 25, 480, 506, 479, 506, 466, 439, 466, 438, 394, 505, 394, 506, 330, 446, 322, 444, 311, 326, 305, 324, 289, 434, 290, 609, 290, 560, 539, -34, 543)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_ewd1n")
+
+[node name="Exit" parent="." instance=ExtResource("3_hxmkp")]
+position = Vector2(481, 362)
+
+[node name="HangingBody" parent="." instance=ExtResource("6_btxdy")]
+position = Vector2(252, 425)
+rotation = 0.243772
+
+[node name="Button" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("5_apxql")]
+position = Vector2(479, 475)
+doors = [NodePath("../Door")]
+
+[node name="Button Line" parent="Button" instance=ExtResource("6_lpfun")]
+position = Vector2(-149.808, -186.425)
+points = PackedVector2Array(149.808, 192.425, 150.808, 215.425, 198.808, 215.425, 198.808, 203.935, 192.808, 192.425, 198.808, 183.169, 198.808, 159.425, 164.808, 159.425, 164.808, 150.425, 156.808, 150.425, 156.93, 159.425, 141.808, 159.425, 141.808, 135.745, 147.808, 128.425, 121.808, 113.425, 121.808, 104.425)
+
+[node name="Box" parent="." instance=ExtResource("6_s2xlb")]
+position = Vector2(426, 466)
+
+[node name="Box2" parent="." instance=ExtResource("6_s2xlb")]
+position = Vector2(77, 467)
+
+[node name="Door" parent="." instance=ExtResource("8_6l2ud")]
+position = Vector2(451, 394)
+scale = Vector2(0.381779, 2.89546)
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = -30.0
+offset_top = 547.0
+offset_right = 161.0
+offset_bottom = 651.0
+text = "who put that box there?!"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = -30.0
+offset_top = 546.0
+offset_right = 161.0
+offset_bottom = 650.0
+text = "who put that box there?!"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -31.0
+offset_top = 545.0
+offset_right = 160.0
+offset_bottom = 649.0
+text = "who put that box there?!"
+
+[editable path="Map"]

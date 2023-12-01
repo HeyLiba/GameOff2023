@@ -1,0 +1,146 @@
+[gd_scene load_steps=7 format=3 uid="uid://j8akix7ivlvu"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="2_s3nli"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="3_r7afx"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_b5pvb"]
+polygon = PackedVector2Array(200.646, 211.535, 200.323, 217.681, 130.372, 225.243, 127.333, 227.479, 106.191, 276.105, 105.932, 278.041, 114.242, 335.171, 115.321, 337.258, 138.261, 359.106, 141.099, 360.103, 206.885, 354.464, 209.95, 364.973, 131.731, 373.761, 101.519, 353.908, 91.189, 275.965, 120.518, 206.309)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qekvk"]
+polygon = PackedVector2Array(395.647, 313.547, 398.455, 316.354, 472.54, 333.9, 502.165, 426.367, 459.003, 439.469, 455.968, 432.26, 487.417, 416.086, 489.412, 411.52, 471.247, 346.342, 468.63, 343.736, 386.622, 321.282, 357.251, 220.705, 373.509, 220.181)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t6av"]
+size = Vector2(76.5, 367)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xeofl"]
+size = Vector2(631.5, 61)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("2_s3nli")]
+position = Vector2(319, 323)
+scale = Vector2(1, 1.01584)
+gravity_scale = 0.0
+
+[node name="Camera2D" parent="Player" index="3"]
+enabled = false
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(57, 13)
+color = Color(0.25098, 0.235294, 1, 1)
+antialiased = true
+polygon = PackedVector2Array(38, 278, 38, 351, 74, 370, 184, 355, 233, 416, 375, 437, 453, 417, 422, 317, 346, 303, 321, 265, 321, 200, 72, 189)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 131.0
+offset_top = 235.0
+offset_right = 746.0
+offset_bottom = 574.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 80
+text = "Thanks
+           for
+                playing"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 131.0
+offset_top = 234.0
+offset_right = 746.0
+offset_bottom = 573.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 80
+text = "Thanks
+           for
+                playing"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 130.0
+offset_top = 233.0
+offset_right = 745.0
+offset_bottom = 572.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 80
+text = "Thanks
+           for
+                playing"
+
+[node name="Label4" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 94.0
+offset_top = 440.0
+offset_right = 698.0
+offset_bottom = 720.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 50
+text = "HeyLiba GameOff 2023"
+
+[node name="Label5" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 94.0
+offset_top = 439.0
+offset_right = 698.0
+offset_bottom = 719.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 50
+text = "HeyLiba GameOff 2023"
+
+[node name="Label6" type="Label" parent="."]
+offset_left = 93.0
+offset_top = 438.0
+offset_right = 697.0
+offset_bottom = 718.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 50
+text = "HeyLiba GameOff 2023"
+
+[node name="Map" parent="." instance=ExtResource("3_r7afx")]
+polygon = PackedVector2Array(208, 205, 116, 199, 84, 275, 95, 358, 130, 381, 219, 371, 212, 347, 142, 353, 121, 333, 113, 278, 133, 232, 207, 224)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(208, 205, 116, 199, 84, 275, 95, 358, 130, 381, 219, 371, 212, 347, 142, 353, 121, 333, 113, 278, 133, 232, 207, 224)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_b5pvb")
+
+[node name="Map2" parent="." instance=ExtResource("3_r7afx")]
+polygon = PackedVector2Array(379, 213, 348, 214, 381, 327, 465, 350, 482, 411, 447, 429, 455, 448, 511, 431, 478, 328, 402, 310)
+
+[node name="CollisionPolygon2D" parent="Map2/StaticBody2D" index="0"]
+polygon = PackedVector2Array(379, 213, 348, 214, 381, 327, 465, 350, 482, 411, 447, 429, 455, 448, 511, 431, 478, 328, 402, 310)
+
+[node name="LightOccluder2D" parent="Map2" index="1"]
+occluder = SubResource("OccluderPolygon2D_qekvk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(22, 359)
+shape = SubResource("RectangleShape2D_8t6av")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(575, 357)
+shape = SubResource("RectangleShape2D_8t6av")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(297.25, 157)
+shape = SubResource("RectangleShape2D_xeofl")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(299, 526)
+shape = SubResource("RectangleShape2D_xeofl")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(316, 349)
+
+[editable path="Player"]
+[editable path="Map"]
+[editable path="Map2"]

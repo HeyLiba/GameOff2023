@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://dtowd1qskrdhp"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_o1v2u"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="2_1f05o"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="3_7paeo"]
+[ext_resource type="PackedScene" uid="uid://df8263kkkk0na" path="res://scenes/one_way_platform.tscn" id="3_r0ygm"]
+[ext_resource type="PackedScene" uid="uid://b2u4iqdmuijtc" path="res://scenes/jump_pad.tscn" id="5_no8x3"]
+[ext_resource type="PackedScene" uid="uid://c8m211cv8t6rq" path="res://scenes/spong.tscn" id="7_45yk1"]
+[ext_resource type="PackedScene" uid="uid://c6b53i6w03eu6" path="res://scenes/box.tscn" id="7_kee1f"]
+[ext_resource type="PackedScene" uid="uid://bj01g8wj8rvih" path="res://scenes/door.tscn" id="8_87q13"]
+[ext_resource type="PackedScene" uid="uid://cvtb6hcy1mtv8" path="res://scenes/button.tscn" id="9_2qgci"]
+[ext_resource type="PackedScene" uid="uid://egmbjr7pnfwd" path="res://scenes/button_line.tscn" id="10_lorhu"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="10_th165"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0ndi4"]
+polygon = PackedVector2Array(292.036, 566.075, -63, 569.924, -63, 199.898, -8.94639, 199.103, -8.05208, 317.152, -50.053, 318.065, -54.0641, 322.258, -52.9334, 372.011, -48.853, 376, -10.9372, 376, -9.97368, 482.953, -5.86038, 487.012, 239.941, 485.988, 244.03, 481.839, 242.975, 380.574, 240.092, 376.853, 189.511, 363.235, 186.523, 353.842, 239.982, 352.951, 244, 348.865, 244, 262.522, 239.766, 258.399, 187.773, 259.79, 198.38, 250.361, 241.058, 239.45, 244, 235.661, 244, 195, 293.964, 195)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_o1v2u")]
+position = Vector2(21, 461)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.298039, 0.384314, 0.666667, 1)
+antialiased = true
+polygon = PackedVector2Array(-117, 180, -116, 556, 194, 555, 195, 179)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Exit" parent="." instance=ExtResource("2_1f05o")]
+position = Vector2(215, 315)
+
+[node name="Map" parent="." instance=ExtResource("3_7paeo")]
+polygon = PackedVector2Array(-70, 193, -2, 192, -1, 324, -47, 325, -46, 369, -4, 369, -3, 480, 237, 479, 236, 383, 184, 369, 177, 347, 237, 346, 237, 265.476, 180, 267, 177, 260, 195, 244, 237, 233.262, 237, 188, 301, 188, 299, 573, -70, 577)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-70, 193, -2, 192, -1, 324, -47, 325, -46, 369, -4, 369, -3, 480, 237, 479, 236, 383, 184, 369, 177, 347, 237, 346, 237, 265.476, 180, 267, 177, 260, 195, 244, 237, 233.262, 237, 188, 301, 188, 299, 573, -70, 577)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_0ndi4")
+
+[node name="JumpPad" parent="." instance=ExtResource("5_no8x3")]
+position = Vector2(159, 479)
+
+[node name="OneWayPlatform" parent="." instance=ExtResource("3_r0ygm")]
+position = Vector2(156, 263)
+scale = Vector2(2.403, 0.287761)
+
+[node name="Box" parent="." instance=ExtResource("7_kee1f")]
+position = Vector2(112, 467)
+
+[node name="Spong" parent="." instance=ExtResource("7_45yk1")]
+position = Vector2(68, 468)
+
+[node name="Door" parent="." instance=ExtResource("8_87q13")]
+position = Vector2(187, 348)
+scale = Vector2(0.5, 3.16)
+buttons_to_open = 2
+
+[node name="Button" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("9_2qgci")]
+position = Vector2(157, 255)
+doors = [NodePath("../Door")]
+
+[node name="Button Line" parent="Button" instance=ExtResource("10_lorhu")]
+position = Vector2(38.4754, 10.3387)
+points = PackedVector2Array(-38.4754, -8.33875, -39.4754, -1.33875, -15.4754, -2.33875, -0.475433, -15.3387, 79.5246, -15.3387, 79.5246, 114.661, 65.5246, 117.661)
+
+[node name="HangingBody" parent="." instance=ExtResource("10_th165")]
+position = Vector2(64, 403)
+
+[node name="Button2" parent="." node_paths=PackedStringArray("doors") instance=ExtResource("9_2qgci")]
+position = Vector2(-26, 363)
+doors = [NodePath("../Door")]
+
+[node name="Button Line" parent="Button2" instance=ExtResource("10_lorhu")]
+position = Vector2(223, -96)
+points = PackedVector2Array(-225, 102, -224.475, 254.661, 65.5246, 255.661, 65.5246, 94.6613, -0.475433, 94.6613, -9.47543, 79.6613)
+
+[editable path="Map"]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://bco63j6ip7jgi"]
+
+[ext_resource type="PackedScene" uid="uid://custulqu5opdo" path="res://scenes/player.tscn" id="1_mow7g"]
+[ext_resource type="PackedScene" uid="uid://b5blo3isp3vam" path="res://scenes/map.tscn" id="2_dg2ul"]
+[ext_resource type="PackedScene" uid="uid://cyikhkyi00ygt" path="res://scenes/exit.tscn" id="3_lj0sv"]
+[ext_resource type="PackedScene" uid="uid://blvh2ik1wtea" path="res://scenes/laser.tscn" id="5_ah65w"]
+[ext_resource type="PackedScene" uid="uid://dwv0ma6ijokcb" path="res://scenes/hanging_body.tscn" id="6_qfkdd"]
+[ext_resource type="PackedScene" uid="uid://df8263kkkk0na" path="res://scenes/one_way_platform.tscn" id="6_v2m8j"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_cnq1x"]
+polygon = PackedVector2Array(86.1735, 316.587, 23.6106, 323.325, 20.036, 327.252, 17.9615, 482.838, 22.0834, 487.006, 508.91, 485.994, 513, 481.895, 513, 327.369, 509.533, 323.409, 451.082, 315.616, 444.101, 297, 600.488, 297, 554.236, 532.039, -27.9348, 535.959, -61.9425, 297.905, 90.3909, 296.102)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_mow7g")]
+position = Vector2(108, 380)
+scale = Vector2(1, 1.01584)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+show_behind_parent = true
+z_index = -5
+position = Vector2(54, 15)
+color = Color(0.321569, 0.211765, 0.52549, 1)
+polygon = PackedVector2Array(-62, 307, -68, 516, 460, 518, 452, 307, 392, 305, 349, 183, 75, 183, 48.3267, 269.337, 37, 306)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.349066
+color = Color(0.92549, 0.988235, 0, 1)
+energy = 0.8
+shadow_enabled = true
+
+[node name="Map" parent="." instance=ExtResource("2_dg2ul")]
+polygon = PackedVector2Array(-70, 291, 99, 289, 92, 323, 27, 330, 25, 480, 506, 479, 506, 330, 446, 322, 434, 290, 609, 290, 560, 539, -34, 543)
+
+[node name="CollisionPolygon2D" parent="Map/StaticBody2D" index="0"]
+polygon = PackedVector2Array(-70, 291, 99, 289, 92, 323, 27, 330, 25, 480, 506, 479, 506, 330, 446, 322, 434, 290, 609, 290, 560, 539, -34, 543)
+
+[node name="LightOccluder2D" parent="Map" index="1"]
+occluder = SubResource("OccluderPolygon2D_cnq1x")
+
+[node name="Exit" parent="." instance=ExtResource("3_lj0sv")]
+position = Vector2(481, 362)
+
+[node name="Laser" parent="." instance=ExtResource("5_ah65w")]
+position = Vector2(37, 439)
+
+[node name="OneWayPlatform" parent="." instance=ExtResource("6_v2m8j")]
+position = Vector2(98, 397)
+scale = Vector2(7.40267, 0.264084)
+
+[node name="OneWayPlatform2" parent="." instance=ExtResource("6_v2m8j")]
+position = Vector2(434, 397)
+scale = Vector2(7.40267, 0.264084)
+
+[node name="HangingBody" parent="." instance=ExtResource("6_qfkdd")]
+position = Vector2(156, 379)
+rotation = 0.128282
+
+[node name="Label3" type="Label" parent="."]
+modulate = Color(0.231373, 0.231373, 0.231373, 1)
+offset_left = 179.0
+offset_top = 541.0
+offset_right = 376.0
+offset_bottom = 645.0
+text = "juuuuuuuuuuuuuuuump!"
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color(0.305882, 0.529412, 1, 1)
+offset_left = 179.0
+offset_top = 540.0
+offset_right = 376.0
+offset_bottom = 644.0
+text = "juuuuuuuuuuuuuuuump!"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 178.0
+offset_top = 539.0
+offset_right = 375.0
+offset_bottom = 643.0
+text = "juuuuuuuuuuuuuuuump!"
+
+[editable path="Map"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjkspukqavt75"]
+
+[ext_resource type="Script" path="res://scripts/scalable.gd" id="1_gj11p"]
+[ext_resource type="Texture2D" uid="uid://cqke6pw3apg26" path="res://sprites/alarm.png" id="2_teyqg"]
+[ext_resource type="AudioStream" uid="uid://cs5odit6m301i" path="res://changeSize.wav" id="3_8fu0q"]
+[ext_resource type="AudioStream" uid="uid://cscwh2wd2niym" path="res://explosion.wav" id="4_wlpt5"]
+
+[node name="Scalable" type="Node2D"]
+script = ExtResource("1_gj11p")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Alarm" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.588235)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_teyqg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8fu0q")
+volume_db = -30.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wlpt5")
